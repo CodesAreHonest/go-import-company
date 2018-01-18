@@ -9,11 +9,10 @@ import (
 / 1 goroutine cost 8kb 
   8kb * 125000 = 1000000 KB = 1GB  
 **/
-var concurrency = 1000000
 
 func insert_distinct_uri() {
 	
-	sem := make (chan bool, concurrency) 
+	sem := make (chan bool, CONCURRENCY) 
 	
 	fmt.Println("Begin to insert company_uri data")
 	var sqlStatement = "INSERT INTO company_uri (com_uri) VALUES ($1);"

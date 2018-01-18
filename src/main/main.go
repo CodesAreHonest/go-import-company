@@ -4,6 +4,7 @@ import (
 	"fmt" 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"database/sql"
+
 )
 
 var db *sql.DB
@@ -12,7 +13,9 @@ const (
 	DB_USER     = "yinghua"
 	DB_PASSWORD = "123"
 	DB_NAME     = "company"
-	ENTRIES	    = 1754882 
+	COMPANY_FILE_DIRECTORY string = "/home/yinghua/Documents/FYP1/FYP-data/company-data/company-data-full.csv"
+	ENTRIES	    = 4077979 
+	CONCURRENCY = 1000000
 )
 
 //====================================================
@@ -24,7 +27,6 @@ func checkErr(err error, message string) {
 	}
 }
 
-
 //====================================================
 // initialize connection with database
 //====================================================
@@ -32,16 +34,16 @@ func initDB() {
 
 	// create dbString to prevent injection 
 	dbInfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		DB_USER, DB_PASSWORD, DB_NAME)
+		DB_USER, DB_PASSWORD, DB_NAME	)
 	sqldb, err := sql.Open("postgres", dbInfo)
 	checkErr(err, "Initialize database")
 	
-	sqldb.SetMaxOpenConns(299)
+//	sqldb.SetMaxOpenConns(299)
 	db = sqldb
 }
 
 func main() { 
-	 
-	import_uri() 
-	
+//	import_uri() 
+	initDB() 
+	openCSV()
 }
