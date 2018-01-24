@@ -14,7 +14,7 @@ const (
 	DB_PASSWORD = "123"
 	DB_NAME     = "company"
 	COMPANY_FILE_DIRECTORY string = "/home/yinghua/Documents/FYP1/FYP-data/company-data/company-data-full.csv"
-	ENTRIES	    = 4077979 
+	ENTRIES	    = 3997101 
 	CONCURRENCY = 1000000
 )
 
@@ -38,12 +38,15 @@ func initDB() {
 	sqldb, err := sql.Open("postgres", dbInfo)
 	checkErr(err, "Initialize database")
 	
-//	sqldb.SetMaxOpenConns(299)
+	sqldb.SetMaxOpenConns(299)
 	db = sqldb
 }
 
 func main() { 
+	//	importCSV()
+	
 //	import_uri() 
-	initDB() 
-	openCSV()
+	import_partnership()
+	
+
 }

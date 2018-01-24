@@ -35,4 +35,29 @@ func insert_distinct_uri() {
 	} 
 }
 
+func insert_distinct_partnership() {
+	
+	sem := make (chan bool, CONCURRENCY) 
+	
+	fmt.Println("Begin to insert company_partnership data")
+	var sqlStatement = "INSERT INTO company_partnership (com_num_genpartners, com_num_limpartners) VALUES ($1, $2);"
+	
+	stmt, err := db.Prepare(sqlStatement)
+	checkErr(err, "Prepare insert company_partnership")
+	
+	// 
+	for i := len(genPartnerArray); i > 0; i-- { 
+		sem <- true
+		go func () {
+			defer func() {<-sem}() 
+			_, err := stmt.Exec(genPartnerArray[i], limPartnerArray[i])
+			checkErr(err, "Insert statement execution error") 
+		}()
+	} 
+	
+	for i := 0 ; i < cap(sem); i++ { 
+		sem <- true
+	} 
+}
+
 

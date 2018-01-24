@@ -32,11 +32,11 @@ type company_rawdata struct {
 	
 	return_nextDueDate 		sql.NullString
 	return_lastMadeUpdate 	sql.NullString 
-	num_MortChanges 		int64 
-	num_MortOutstanding 	int64
-	num_MortPartSatisfied 	int64 // 25
+	num_MortChanges 		int 
+	num_MortOutstanding 	int
+	num_MortPartSatisfied 	int // 25
 	
-	num_MortSatisfied 		int64
+	num_MortSatisfied 		int
 	siccode1 				sql.NullString 
 	siccode2 				sql.NullString
 	siccode3 				sql.NullString

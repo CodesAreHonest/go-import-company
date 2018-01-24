@@ -1,19 +1,20 @@
 package main
 
 import (
-	//	"fmt"
+	"fmt" 
+	"strconv"
 	"bufio"
 	"encoding/csv"
 	"io"
 	"os"
+	"time" 
 )
 
-func openCSV() {
+func importCSV() {
+	initDB() 
+	fmt.Println("Prepare to import data") 
 
-	var sStmt string = "insert into company_test values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55)"
-
-	stmt, err := db.Prepare(sStmt)
-	checkErr(err, "Prepare COmpany Stmt")
+	var sStmt string = "INSERT INTO company_rawdata VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55);"
 
 	csvFile, err := os.Open(COMPANY_FILE_DIRECTORY)
 	checkErr(err, "Open CSV")
@@ -22,31 +23,68 @@ func openCSV() {
 
 	// Create a new reader.
 	reader := csv.NewReader(bufio.NewReader(csvFile))
+	
+	start := time.Now()
 
-	for i := 0; i <= 5; i++ {
+	for i := 0; i <= ENTRIES; i++ {
 
 		record, err := reader.Read()
 
 		if i == 0 {
 			continue
 		}
+		
+		if i == 500 { 
+			fmt.Println("Imported 500 rows", time.Since(start).Seconds()) 
+		} else if i == 1000 { 
+			fmt.Println("Imported 1000 rows", time.Since(start).Seconds())
+		} else if i == 1500 { 
+			fmt.Println("Imported 1500 rows", time.Since(start).Seconds())
+		} else if i == 2000 { 
+			fmt.Println("Imported 2000 rows", time.Since(start).Seconds())
+		} else if i == 2500 { 
+			fmt.Println("Imported 2500 rows", time.Since(start).Seconds())
+		} else if i == 5000 { 
+			fmt.Println("Imported 5000 rows", time.Since(start).Seconds())
+		} else if i == 7500 { 
+			fmt.Println("Will not display progress because too much row to process.", time.Since(start).Seconds())
+		}
 
 		// Stop at EOF.
 		if err == io.EOF {
 			break
 		}
-
-		company := company_rawdata{
+		
+		int_mortchange, err := strconv.Atoi(record[22]) 
+		checkErr(err, "convert mortchange value to integer") 
+		
+		int_mortoutstanding, err  := strconv.Atoi(record[23])
+		checkErr(err, "convert mortoutstanding value to integer") 
+		
+		int_mortpartsatisfied, err := strconv.Atoi(record[24]) 
+		checkErr(err, "convert mortpartsatisfied value to integer") 
+		
+		int_mortsatisfied, err  := strconv.Atoi(record[25])
+		checkErr(err, "convert mortsatisfied value to integer") 
+		
+		int_genpartner, err := strconv.Atoi(record[30]) 
+		checkErr(err, "convert genpartner value to integer")
+		 
+		int_limpartner, err := strconv.Atoi(record[31])
+		checkErr(err, "convert limpartner value to integer")
+		
+		
+		company := company_rawdata{	
 			number: record[1],
 			category: record[10],
 			status: record[11], 
 			countryOfOrigin: record[12], 
-			num_MortChanges: record[22], 
-			num_MortOutstanding: record[23], 
-			num_MortPartSatisfied: record[24], 
-			num_MortSatisfied: record[25],
-			num_genPartner: record[30],
-			num_limPartner: record[31],
+			num_MortChanges: int_mortchange, 
+			num_MortOutstanding: int_mortoutstanding, 
+			num_MortPartSatisfied: int_mortpartsatisfied, 
+			num_MortSatisfied: int_mortsatisfied,
+			num_genPartner: int_genpartner,
+			num_limPartner: int_limpartner,
 			uri: record[32],
 		}
 
@@ -97,12 +135,12 @@ func openCSV() {
 		
 		company.dissolution_date.Scan(record[13])
 		if len(company.dissolution_date.String) == 0 {
-			company.dissolution_date.String = "3000-01-01"
+			company.dissolution_date.String = "01/01/3000"
 		}
 		
 		company.incorporate_date.Scan(record[14])
 		if len(company.dissolution_date.String) == 0 {
-			company.dissolution_date.String = "3000-01-01"
+			company.dissolution_date.String = "01/01/3000"
 		}
 		
 		company.accounting_refDay.Scan(record[15])
@@ -110,12 +148,12 @@ func openCSV() {
 
 		company.account_nextDueDate.Scan(record[17])
 		if len(company.account_nextDueDate.String) == 0 {
-			company.account_nextDueDate.String = "3000-01-01"
+			company.account_nextDueDate.String = "01/01/3000"
 		}
 		
 		company.account_lastMadeUpdate.Scan(record[18])
 		if len(company.account_lastMadeUpdate.String) == 0 {
-			company.account_lastMadeUpdate.String = "3000-01-01"
+			company.account_lastMadeUpdate.String = "01/01/3000"
 		}
 		
 		company.account_category.Scan(record[19])
@@ -125,12 +163,12 @@ func openCSV() {
 		
 		company.return_nextDueDate.Scan(record[20])
 		if len(company.return_nextDueDate.String) == 0 {
-			company.return_nextDueDate.String = "3000-01-01"
+			company.return_nextDueDate.String = "01/01/3000"
 		}
 		
 		company.return_lastMadeUpdate.Scan(record[21])
 		if len(company.return_lastMadeUpdate.String) == 0 {
-			company.return_lastMadeUpdate.String = "3000-01-01"
+			company.return_lastMadeUpdate.String = "01/01/3000"
 		}
 		
 		company.siccode1.Scan(record[26])
@@ -155,18 +193,17 @@ func openCSV() {
 		
 		company.pn1_condate.Scan(record[33])
 		if len(company.pn1_condate.String) == 0 {
-			company.pn1_condate.String = "3000-01-01"
+			company.pn1_condate.String = "01/01/3000"
 		}
 		
-		company.pn1_companydate.Scan(record[34])
-		if len(company.pn1_companydate.String) == 0 {
-			company.pn1_companydate.String = "Undefined"
+		company.pn1_companyname.Scan(record[34])
+		if len(company.pn1_companyname.String) == 0 {
+			company.pn1_companyname.String = "Undefined"
 		}
 		
 		company.pn2_condate.Scan(record[35])
 		if len(company.pn2_condate.String) == 0 {
-			company.pn2_condate.String = "3000-01-01"
-		}
+			company.pn2_condate.String = "01/01/3000"
 		
 		company.pn2_companyname.Scan(record[36])
 		if len(company.pn2_companyname.String) == 0 {
@@ -175,7 +212,7 @@ func openCSV() {
 		
 		company.pn3_condate.Scan(record[37])
 		if len(company.pn3_condate.String) == 0 {
-			company.pn3_condate.String = "3000-01-01"
+			company.pn3_condate.String = "01/01/3000"
 		}
 		
 		company.pn3_companyname.Scan(record[38])
@@ -185,7 +222,7 @@ func openCSV() {
 		
 		company.pn4_condate.Scan(record[39])
 		if len(company.pn4_condate.String) == 0 {
-			company.pn4_condate.String = "3000-01-01"
+			company.pn4_condate.String = "01/01/3000"
 		}
 		
 		company.pn4_companyname.Scan(record[40])
@@ -193,77 +230,95 @@ func openCSV() {
 			company.pn4_companyname.String = "Undefined"
 		}
 		
-		company.pn5_condate.Scan(record[37])
+		company.pn5_condate.Scan(record[41])
 		if len(company.pn5_condate.String) == 0 {
-			company.pn5_condate.String = "3000-01-01"
+			company.pn5_condate.String = "01/01/3000"
 		}
 		
-		company.pn5_companyname.Scan(record[38])
+		company.pn5_companyname.Scan(record[42])
 		if len(company.pn5_companyname.String) == 0 {
 			company.pn5_companyname.String = "Undefined"
 		}
 		
-		company.pn6_condate.Scan(record[39])
+		company.pn6_condate.Scan(record[43])
 		if len(company.pn6_condate.String) == 0 {
-			company.pn6_condate.String = "3000-01-01"
+			company.pn6_condate.String = "01/01/3000"
 		}
 		
-		company.pn6_companyname.Scan(record[40])
+		company.pn6_companyname.Scan(record[44])
 		if len(company.pn6_companyname.String) == 0 {
 			company.pn6_companyname.String = "Undefined"
 		}
 		
-		company.pn7_condate.Scan(record[37])
+		company.pn7_condate.Scan(record[45])
 		if len(company.pn7_condate.String) == 0 {
-			company.pn7_condate.String = "3000-01-01"
+			company.pn7_condate.String = "01/01/3000"
 		}
 		
-		company.pn7_companyname.Scan(record[38])
+		company.pn7_companyname.Scan(record[46])
 		if len(company.pn7_companyname.String) == 0 {
 			company.pn7_companyname.String = "Undefined"
 		}
 		
-		company.pn8_condate.Scan(record[39])
+		company.pn8_condate.Scan(record[47])
 		if len(company.pn8_condate.String) == 0 {
-			company.pn8_condate.String = "3000-01-01"
+			company.pn8_condate.String = "01/01/3000"
 		}
 		
-		company.pn8_companyname.Scan(record[40])
+		company.pn8_companyname.Scan(record[48])
 		if len(company.pn8_companyname.String) == 0 {
 			company.pn8_companyname.String = "Undefined"
 		}
 		
-		company.pn9_condate.Scan(record[37])
+		company.pn9_condate.Scan(record[49])
 		if len(company.pn9_condate.String) == 0 {
-			company.pn9_condate.String = "3000-01-01"
+			company.pn9_condate.String = "01/01/3000"
 		}
 		
-		company.pn9_companyname.Scan(record[38])
+		company.pn9_companyname.Scan(record[50])
 		if len(company.pn9_companyname.String) == 0 {
 			company.pn9_companyname.String = "Undefined"
 		}
 		
-		company.pn10_condate.Scan(record[39])
+		company.pn10_condate.Scan(record[51])
 		if len(company.pn10_condate.String) == 0 {
-			company.pn10_condate.String = "3000-01-01"
+			company.pn10_condate.String = "01/01/3000"
 		}
 		
-		company.pn10_companyname.Scan(record[40])
+		company.pn10_companyname.Scan(record[52])
 		if len(company.pn10_companyname.String) == 0 {
 			company.pn10_companyname.String = "Undefined"
 		}
 		
-		company.conf_stmtNextDueDate.Scan(record[39])
+		company.conf_stmtNextDueDate.Scan(record[53])
 		if len(company.conf_stmtNextDueDate.String) == 0 {
-			company.conf_stmtNextDueDate.String = "3000-01-01"
+			company.conf_stmtNextDueDate.String = "01/01/3000"
 		}
 		
-		company.conf_stmtLastMadeUpdate.Scan(record[40])
+		company.conf_stmtLastMadeUpdate.Scan(record[54])
 		if len(company.conf_stmtLastMadeUpdate.String) == 0 {
-			company.conf_stmtLastMadeUpdate.String = "3000-01-01"
+			company.conf_stmtLastMadeUpdate.String = "01/01/3000"
 		}
-
-		stmt.Exec(company.companyname.String, company.companynumber, company.careof.String)
+				
+		_, err = db.Exec(sStmt, company.name.String, company.number, company.careOf.String, company.poBox.String, company.addressLine1.String, 
+			company.addressLine2.String, company.postTown.String, company.county.String, company.country.String, company.postcode.String, 
+			company.category, company.status, company.countryOfOrigin, company.dissolution_date.String, company.incorporate_date.String, 
+			company.accounting_refDay.Int64, company.accounting_refMonth.Int64, company.account_nextDueDate.String, company.account_lastMadeUpdate.String, company.account_category.String, 
+			company.return_nextDueDate.String, company.return_lastMadeUpdate.String, company.num_MortChanges, company.num_MortOutstanding, company.num_MortPartSatisfied, 
+			company.num_MortSatisfied, company.siccode1.String, company.siccode2.String, company.siccode3.String, company.siccode4.String, 
+			company.num_genPartner, company.num_limPartner, company.uri, company.pn1_condate.String, company.pn1_companyname.String, 
+			company.pn2_condate.String, company.pn2_companyname.String, company.pn3_condate.String, company.pn3_companyname.String, company.pn4_condate.String, 
+			company.pn4_companyname.String, company.pn5_condate.String, company.pn5_companyname.String, company.pn6_condate.String, company.pn6_companyname.String, 
+			company.pn7_condate.String, company.pn7_companyname.String, company.pn8_condate.String, company.pn8_companyname.String, company.pn9_condate.String, 
+			company.pn9_companyname.String, company.pn10_condate.String, company.pn10_companyname.String, company.conf_stmtNextDueDate.String, company.conf_stmtLastMadeUpdate.String)
+		
 		checkErr(err, "Company Data Importation")
 	}
+	
+	
+	}
+	
+	fmt.Printf("%.5fs seconds on import 4079779 rows from CSV to company_rawdata. \n", time.Since(start).Seconds())
+	defer db.Close()
+	
 }
