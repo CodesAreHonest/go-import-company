@@ -4,6 +4,97 @@ import (
 	"database/sql"
 )
 
+var ( 
+	uriArray [] string 
+	
+	genPartnerArray [] int 
+	limPartnerArray [] int 
+	
+	mortchargesArray [] int 
+	mortoutstandingArray [] int 
+	mortpartsatisfiedArray [] int 
+	mortsatisfiedArray [] int 
+	
+	siccode1Array [] string
+	siccode2Array [] string
+	siccode3Array [] string
+	siccode4Array [] string
+	
+	nextduedateArray [] string 
+	lastmadeupdateArray [] string 
+	
+	categoryArray[] string
+	accountcategoryArray[] string
+	
+	refdayArray [] int64 
+	refmonthArray [] int64 
+	a_nextduedateArray[] string 
+	a_lastmadeupdateArray [] string 
+	categoryIDArray [] int 
+	
+	confstmtnextduedateArray[] string 
+	confstmtlastmadeupdateArray[] string 
+	
+	careofArray [] string 
+	poboxArray [] string 
+	addressline1Array [] string 
+	addressline2Array [] string 
+	posttownArray [] string 
+	countyArray [] string 
+	countryArray [] string 
+	postcodeArray [] string 
+	
+	countryoforiginArray [] string
+	companystatusArray [] string  
+	companycategoryArray [] string 
+	
+	dissolutiondateArray [] string 
+	incorporatedateArray [] string 
+	
+	companynameArray [] string 
+	companynumberArray [] string 
+	
+	com_address_idArray [] int 
+	com_category_idArray [] int 
+	com_status_idArray [] int 
+	com_countryoforigin_idArray[] int 
+	
+	pn1_condate_Array [] string 
+	pn1_companyname_Array [] string 
+	pn2_condate_Array [] string 
+	pn2_companyname_Array [] string 
+	pn3_condate_Array [] string 
+	pn3_companyname_Array [] string 
+	pn4_condate_Array [] string 
+	pn4_companyname_Array [] string 
+	pn5_condate_Array [] string 
+	pn5_companyname_Array [] string 
+	pn6_condate_Array [] string 
+	pn6_companyname_Array [] string 
+	pn7_condate_Array [] string 
+	pn7_companyname_Array [] string 
+	pn8_condate_Array [] string 
+	pn8_companyname_Array [] string 
+	pn9_condate_Array [] string 
+	pn9_companyname_Array [] string 
+	pn10_condate_Array [] string 
+	pn10_companyname_Array [] string 
+	
+	// for import company table 
+	com_detail_idArray [] int
+	com_acc_idArray [] int
+	com_return_idArray [] int 
+	com_mort_idArray [] int 
+	com_sic_idArray [] int
+	com_partnership_idArray [] int 
+	com_uri_idArray [] int
+	com_previousname_idArray [] int  
+	com_conf_stmt_idArray [] int
+
+)
+
+
+
 type company_rawdata struct { 
 	
 	name 					sql.NullString
@@ -18,9 +109,9 @@ type company_rawdata struct {
 	country 				sql.NullString  
 	postcode 				sql.NullString // 10
 	
-	category 				string 
-	status 					string 
-	countryOfOrigin 		string 
+	category 				sql.NullString 
+	status 					sql.NullString 
+	countryOfOrigin 		sql.NullString 
 	dissolution_date 		sql.NullString
 	incorporate_date 		sql.NullString // 15
 	 
@@ -73,6 +164,8 @@ type company_rawdata struct {
 	conf_stmtLastMadeUpdate sql.NullString // 55
 	
 }
+
+
 
 //type NullInt64 sql.NullInt64
 //

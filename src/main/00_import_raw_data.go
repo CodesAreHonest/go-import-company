@@ -76,9 +76,6 @@ func importCSV() {
 		
 		company := company_rawdata{	
 			number: record[1],
-			category: record[10],
-			status: record[11], 
-			countryOfOrigin: record[12], 
 			num_MortChanges: int_mortchange, 
 			num_MortOutstanding: int_mortoutstanding, 
 			num_MortPartSatisfied: int_mortpartsatisfied, 
@@ -86,6 +83,21 @@ func importCSV() {
 			num_genPartner: int_genpartner,
 			num_limPartner: int_limpartner,
 			uri: record[32],
+		}
+		
+		company.category.Scan(record[10])
+		if len(company.category.String) == 0 {
+			company.category.String = "Undefined"
+		}
+		
+		company.status.Scan(record[11])
+		if len(company.status.String) == 0 {
+			company.status.String = "Undefined"
+		}
+		
+		company.countryOfOrigin.Scan(record[12])
+		if len(company.countryOfOrigin.String) == 0 {
+			company.countryOfOrigin.String = "Undefined"
 		}
 
 		company.name.Scan(record[0])
@@ -302,7 +314,7 @@ func importCSV() {
 				
 		_, err = db.Exec(sStmt, company.name.String, company.number, company.careOf.String, company.poBox.String, company.addressLine1.String, 
 			company.addressLine2.String, company.postTown.String, company.county.String, company.country.String, company.postcode.String, 
-			company.category, company.status, company.countryOfOrigin, company.dissolution_date.String, company.incorporate_date.String, 
+			company.category.String, company.status.String, company.countryOfOrigin.String, company.dissolution_date.String, company.incorporate_date.String, 
 			company.accounting_refDay.Int64, company.accounting_refMonth.Int64, company.account_nextDueDate.String, company.account_lastMadeUpdate.String, company.account_category.String, 
 			company.return_nextDueDate.String, company.return_lastMadeUpdate.String, company.num_MortChanges, company.num_MortOutstanding, company.num_MortPartSatisfied, 
 			company.num_MortSatisfied, company.siccode1.String, company.siccode2.String, company.siccode3.String, company.siccode4.String, 
@@ -322,3 +334,5 @@ func importCSV() {
 	defer db.Close()
 	
 }
+
+

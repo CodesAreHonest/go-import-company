@@ -1,0 +1,216 @@
+========================
+Import company_uri data 
+========================
+Begin to retrieve uri from company_rawdata
+Company URI: 2033290 
+Begin to insert company_uri data
+258.93969s seconds on import uri. 
+ 
+=============================
+Import company_partnership data 
+=============================
+Begin to retrieve partnership from company_rawdata
+General partner: 279 
+Limited partner: 279 
+Begin to insert company_partnership data
+2.71493s seconds on import partnership. 
+
+=============================
+Import company_mortgages data 
+=============================
+Begin to retrieve mortgages from company_rawdata
+Mort charges: 3710 
+Mort outstanding: 3710 
+Mort partsatisfied: 3710 
+mort satisfied: 3710 
+Begin to insert company_mortgages data
+5.16182s seconds on import mortgages. 
+
+=============================
+Import company_returns data 
+=============================
+Begin to retrieve returns from company_rawdata
+Return next due date: 28697 
+Return last made update: 28697 
+Begin to insert company_returns data
+14.24606s seconds on import returns. 
+
+=============================
+Import company_account_category data 
+=============================
+Begin to retrieve account category from company_rawdata
+Category: 16 
+Begin to insert company_account_category data
+1.56320s seconds on import account category. 
+
+=============================
+Import company_account data 
+=============================
+Begin to retrieve account from company_rawdata
+Ref day : 3595702 
+Ref month: 3595702 
+Account nextduedate: 3595702 
+Account lastmadeupdate: 3595702 
+Category ID: 3595702 
+Begin to insert company_account data
+2867.11349s seconds on import account.  
+
+=============================
+Import company_conf_stmt data 
+=============================
+Begin to retrieve conference statement from company_rawdata
+Conference Statement next due date : 14900 
+Conference Statement last made update: 14900 
+Begin to insert company_conf_stmt data
+14.31405s seconds on import conference statement. 
+ 
+=============================
+Import company_address data 
+=============================
+Begin to retrieve address from company_rawdata
+Care of: 1419715 
+PO Box: 1419715 
+Address Line 1: 1419715 
+Address Line 2: 1419715 
+Post town: 1419715 
+County: 1419715 
+Country: 1419715 
+Postcode: 1419715 
+Begin to insert company_address data
+181.64420s seconds on import address statement. 
+
+====================================
+Import company_countryoforigin data 
+====================================
+Begin to retrieve countryoforigin from company_rawdata
+Country of origin: 196 
+Begin to insert company_countryoforigin data
+2.43293s seconds on import countryoforigin statement. 
+
+==========================
+Import company_status data 
+==========================
+Begin to retrieve companystatus from company_rawdata
+Company status: 14 
+Begin to insert com_status data
+22.42986s seconds on import companystatus statement. 
+
+============================
+Import company_category data 
+============================
+Begin to retrieve companycategory from company_rawdata
+Company category: 21 
+Begin to insert com_status data
+1.39370s seconds on import company category statement. 
+
+============================
+Import company_siccodes data 
+============================
+Begin to retrieve siccode from company_rawdata
+SIC code 1: 51693 
+SIC code 2: 51693 
+SIC code 3: 51693 
+SIC code 4: 51693 
+Begin to insert com_status data
+16.41218s seconds on import companysiccode statement. 
+
+================================
+Import company_previousname data 
+===============================
+Begin to retrieve previousdate from company_rawdata
+Company change of date 1: 190185 
+Company change name 1: 190185 
+Company change of date 2: 190185 
+Company change name 2: 190185 
+Company change of date 3: 190185 
+Company change name 3: 190185 
+Company change of date 4: 190185 
+Company change name 4: 190185 
+Company change of date 5: 190185 
+Company change name 5: 190185 
+Company change of date 6: 190185 
+Company change name 6: 190185 
+Company change of date 7: 190185 
+Company change name 7: 190185 
+Company change of date 8: 190185 
+Company change name 8: 190185 
+Company change of date 9: 190185 
+Company change name 9: 190185 
+Company change of date 10: 190185 
+Company change name 10: 190185 
+Begin to insert company_previousname data
+87.43327s seconds on import company previousdate statement. 
+
+================================
+Import company_detail data 
+===============================
+Begin to retrieve companydetail from company_rawdata
+Company name: 3595702 
+Company number: 3595702 
+Company category id: 3595702 
+Company status id: 3595702 
+Begin to insert company_detail data
+7500.89631s seconds on import companydetail statement. 
+
+================================
+Import company data 
+===============================
+Begin to retrieve company_detail_id from company_detail
+Company detail id: 3595702 
+
+Begin to retrieve normal detail from company_rawdata
+Dissolution date: 3595702 
+Incorporationdate: 3595702 
+Country of origin: 3595702 
+Careof: 3595702 
+Pobox: 3595702 
+Address line 1: 3595702 
+Address line 2: 3595702 
+Post town: 3595702 
+County: 3595702 
+Country: 3595702 
+Postcode: 3595702 
+
+Begin to retrieve com_acc_id from company_account
+Company account id: 3595702 
+
+Begin to retrieve com_return_id from company_returns
+Company return id: 3595702 
+
+Begin to retrieve com_mort_id from company_mortgages
+Company mort id: 3595702 
+
+Begin to retrieve com_sic_id from company_siccodes
+Company mort id: 3595702 
+
+Begin to retrieve com_partnership_id from company_partnership
+Company partnership: 3595702 
+
+Begin to retrieve com_uri_id from company_uri
+Company uri: 3595702 
+
+Begin to retrieve com_conf_stmt_id from company_conf_stmt
+Company conference statement: 3595702 
+
+Begin to retrieve com_pn_id from company_previousname
+Company previousname: 3595702 
+
+Begin to insert company data
+14821.83897s seconds on import company. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
