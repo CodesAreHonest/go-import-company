@@ -16,7 +16,7 @@ func importCSVtoDB() {
 	retrieveCSV()
 	importDB()
 	
-	fmt.Printf("%.5fs seconds on import 4079779 rows from CSV to company_rawdata. \n", time.Since(start).Seconds())
+	fmt.Printf("%.5fs seconds on import 3595702 rows of company_rawdata. \n", time.Since(start).Seconds())
 
 }
 
@@ -42,17 +42,17 @@ func retrieveCSV() {
 		}
 		
 		if i == 100000 { 
-			fmt.Println("Imported 100000 rows", time.Since(start).Seconds()) 
+			fmt.Println("Cleaned 100000 rows", time.Since(start).Seconds()) 
 		} else if i == 500000 { 
-			fmt.Println("Imported 500000 rows", time.Since(start).Seconds())
+			fmt.Println("Cleaned 500000 rows", time.Since(start).Seconds())
 		} else if i == 1000000 { 
-			fmt.Println("Imported 1000000 rows", time.Since(start).Seconds())
+			fmt.Println("Cleaned 1000000 rows", time.Since(start).Seconds())
 		} else if i == 2000000 { 
-			fmt.Println("Imported 2000000 rows", time.Since(start).Seconds())
+			fmt.Println("Cleaned 2000000 rows", time.Since(start).Seconds())
 		} else if i == 3000000 { 
-			fmt.Println("Imported 3000000 rows", time.Since(start).Seconds())
+			fmt.Println("Cleaned 3000000 rows", time.Since(start).Seconds())
 		} else if i == 4000000 { 
-			fmt.Println("Imported 4000000 rows", time.Since(start).Seconds())
+			fmt.Println("Cleaned 4000000 rows", time.Since(start).Seconds())
 		}
 
 		// Stop at EOF.
@@ -221,6 +221,7 @@ func retrieveCSV() {
 		company.pn2_condate.Scan(record[35])
 		if len(company.pn2_condate.String) == 0 {
 			company.pn2_condate.String = "01/01/3000"
+		}
 		
 		company.pn2_companyname.Scan(record[36])
 		if len(company.pn2_companyname.String) == 0 {
@@ -388,6 +389,7 @@ func retrieveCSV() {
 		
 		
 	}
+
 	
 	fmt.Println("company name ", len(companynameArray))
 	fmt.Println("company number ", len(companynumberArray))		
@@ -418,7 +420,7 @@ func retrieveCSV() {
 	fmt.Println("company mortcharge ", len(mortchargesArray))		
 	fmt.Println("company mortoutstanding ", len(mortoutstandingArray))	
 	fmt.Println("company mortpartsatisfied ", len(mortpartsatisfiedArray))
-	
+		 
 	fmt.Println("company mortsatisfied ", len(mortsatisfiedArray))
 	fmt.Println("company siccode1 ", len(siccode1Array))
 	fmt.Println("company siccode2 ", len(siccode2Array))
@@ -452,3 +454,4 @@ func retrieveCSV() {
 	fmt.Println("stmtnextduedate", len(confstmtnextduedateArray))
 	fmt.Println("stmtlastmadeupdate", len(confstmtlastmadeupdateArray))	
 }
+
